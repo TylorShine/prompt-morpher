@@ -31,7 +31,7 @@ npm install
 
 2. 環境変数を設定
 ```bash
-cp .env.example .env.local
+cp example.env .env.local
 ```
 
 ## Provider設定
@@ -124,7 +124,7 @@ gcloud builds submit --config cloudbuild.yaml
   "result": "# Role\\n...",
   "sampleOutput": "（optional）system prompt の実行結果サンプル",
   "provider": "vertex_ai",
-  "model": "gemini-2.5-flash",
+  "model": "gemini-3-flash-preview",
   "warning": "optional warning",
   "cache": {
     "selfCache": "miss",

@@ -2,33 +2,57 @@
 
 ```mermaid
 flowchart LR
-  U[User\nBrowser / Mobile Web] --> FE[Next.js Frontend\nReact + Dynamic UI]
+  U[User]
+  FE[Frontend Next.js]
 
-  FE --> FAPI[/POST /api/form/generate/]
-  FE --> AAPI[/POST /api/form/autofill/]
-  FE --> PAPI[/POST /api/prompt/generate/]
-
-  subgraph BE["Next.js API Routes (Server)"]
-    FAPI --> ORCH[Orchestrator\nlib/server/gemini.ts]
-    AAPI --> ORCH
-    PAPI --> ORCH
-
-    ORCH --> CACHE[Self Cache\nsqlite / memory]
-    CACHE -. hit .-> ORCH
-
-    ORCH --> CCTX[Context Cache Controller\nlib/server/ai/context-cache.ts]
-    CCTX --> MC[(Model Context Cache\nVertex/Gemini)]
-
-    ORCH --> PROV[Provider Resolver\nlib/server/ai/provider.ts]
-    PROV --> GMD[Gemini API direct\n(API key / AIza...)]
-    PROV --> VSTD[Vertex AI Standard\n(project+location+ADC)]
-    PROV --> VEXP[Vertex AI Express\n(AQ... key)]
-
-    ORCH --> POLICY[Form Policy JSON\nconfig/form-generation-policy.json]
-    ORCH -. fallback .-> LOCAL[Local Template / Local Suggestion]
+  subgraph API[API Routes]
+    FAPI[POST api form generate]
+    AAPI[POST api form autofill]
+    PAPI[POST api prompt generate]
   end
 
-  ORCH --> RES[JSON Response\nprovider/model/cache/warning]
+  subgraph CORE[Core Services]
+    ORCH[Orchestrator gemini.ts]
+    CACHE[Self Cache sqlite memory]
+    CCTX[Context Cache Controller]
+    MC[Model Context Cache Vertex Gemini]
+    PROV[Provider Resolver]
+    POLICY[Form Policy JSON]
+    LOCAL[Local Template Fallback]
+  end
+
+  subgraph LLM[Provider Backends]
+    GMD[Gemini API Direct]
+    VSTD[Vertex AI Standard]
+    VEXP[Vertex AI Express]
+  end
+
+  RES[JSON Response form metadata warning]
+
+  U --> FE
+  FE --> FAPI
+  FE --> AAPI
+  FE --> PAPI
+
+  FAPI --> ORCH
+  AAPI --> ORCH
+  PAPI --> ORCH
+
+  ORCH --> CACHE
+  CACHE -. cache hit .-> ORCH
+
+  ORCH --> CCTX
+  CCTX --> MC
+
+  ORCH --> PROV
+  PROV --> GMD
+  PROV --> VSTD
+  PROV --> VEXP
+
+  ORCH --> POLICY
+  ORCH -. fallback .-> LOCAL
+
+  ORCH --> RES
   RES --> FE
 ```
 
