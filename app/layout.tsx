@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "MorphPrompt",
+  title: "Prompt Morpher",
   description: "Dynamic form driven prompt builder",
 };
 

@@ -1,4 +1,4 @@
-# MorphPrompt
+# Prompt Morpher
 
 意図入力から動的フォームを生成し、I2Pフレームワーク準拠の最終プロンプトを作る Next.js アプリです。  
 `Gemini API direct` と `Vertex AI` を同じ抽象レイヤーで切り替えできます。

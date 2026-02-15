@@ -39,10 +39,10 @@ export function MorphWorkspaceShell({
           <div className="flex flex-col gap-3 xl:flex-row xl:items-end xl:justify-between">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-700 dark:text-sky-300">
-                MorphPrompt Mobile Flow
+                Prompt Morpher Mobile Flow
               </p>
               <h1 className="mt-1 text-3xl font-black tracking-tight text-slate-900 dark:text-slate-100">
-                MorphPrompt
+                Prompt Morpher
               </h1>
               <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600 dark:text-slate-300">
                 スマホアプリ想定の3ステップ体験で、入力から最終プロンプトまでを生成します。
@@ -93,7 +93,7 @@ export function MorphWorkspaceShell({
               <header className="space-y-3 border-b border-slate-200/70 px-4 pb-3 pt-4 dark:border-slate-700/70">
                 <div className="flex items-center justify-between">
                   <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-700 dark:text-sky-300">
-                    MorphPrompt
+                    Prompt Morpher
                   </p>
                   <div className="flex items-center gap-2">
                     <ThemeToggle compact />

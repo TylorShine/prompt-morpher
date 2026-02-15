@@ -134,7 +134,7 @@ export function PromptForgePanel({
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement("a");
     anchor.href = url;
-    anchor.download = "morphprompt-system-prompt.md";
+    anchor.download = "prompt-morpher-system-prompt.md";
     document.body.appendChild(anchor);
     anchor.click();
     document.body.removeChild(anchor);
