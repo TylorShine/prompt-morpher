@@ -4,20 +4,19 @@ substitutions:
   _MODEL: gemini-3-flash-preview
   _AI_PROVIDER: vertex_ai
   _GEMINI_SECRET: gemini-api-key
-  _IMAGE: us-central1-docker.pkg.dev/$PROJECT_ID/morph-prompt-repo/morph-prompt:$SHORT_SHA
 
 steps:
   - name: gcr.io/cloud-builders/docker
     args:
       - build
       - -t
-      - ${_IMAGE}
+      - ${_REGION}-docker.pkg.dev/$PROJECT_ID/morph-prompt-repo/morph-prompt:$BUILD_ID
       - .
 
   - name: gcr.io/cloud-builders/docker
     args:
       - push
-      - ${_IMAGE}
+      - ${_REGION}-docker.pkg.dev/$PROJECT_ID/morph-prompt-repo/morph-prompt:$BUILD_ID
 
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk
     entrypoint: gcloud
@@ -26,7 +25,7 @@ steps:
       - deploy
       - ${_SERVICE_NAME}
       - --image
-      - ${_IMAGE}
+      - ${_REGION}-docker.pkg.dev/$PROJECT_ID/morph-prompt-repo/morph-prompt:$BUILD_ID
       - --region
       - ${_REGION}
       - --platform

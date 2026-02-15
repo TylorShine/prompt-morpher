@@ -18,8 +18,8 @@ import { TimelineEntry } from "@/components/workspace/SystemTimeline";
 type MobileStep = 0 | 1 | 2;
 type IntentInputMode = "simple" | "detailed";
 
-const starterIntent = "Instagramの商品紹介投稿を作りたい";
-const starterKeywords = ["Instagram", "商品紹介", "投稿"] as const;
+const starterIntent = "";
+const starterKeywords: string[] = [];
 
 const presets = [
   "Instagramの商品紹介投稿を作りたい",

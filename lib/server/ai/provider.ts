@@ -92,7 +92,7 @@ export class UnifiedAiProvider {
 }
 
 function getModelName(): string {
-  return process.env.GEMINI_MODEL?.trim() || "gemini-3-flash-preview";
+  return process.env.GEMINI_MODEL?.trim() || "gemini-2.5-flash";
 }
 
 function getPreferredProvider(): string {

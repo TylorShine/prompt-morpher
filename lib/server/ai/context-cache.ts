@@ -69,7 +69,7 @@ function markUnsupported(lookupKey: string): void {
 
 function normalizeContextCacheError(error: unknown): {
   isUnsupported: boolean;
-  warning: string;
+  warning?: string;
 } {
   const raw = error instanceof Error ? error.message : String(error);
   const compact = raw.replace(/\s+/g, " ").trim();
@@ -82,6 +82,15 @@ function normalizeContextCacheError(error: unknown): {
     lower.includes("not found") &&
     (lower.includes("/cachedcontents") || lower.includes("cachedcontents"));
   const isUnauthenticated = lower.includes("unauthenticated");
+  const isMinimumTokenThreshold =
+    lower.includes("minimum token count") &&
+    lower.includes("start caching");
+
+  if (isMinimumTokenThreshold) {
+    return {
+      isUnsupported: true,
+    };
+  }
 
   if (is404CachedContents || isNotFoundCachedContents) {
     return {

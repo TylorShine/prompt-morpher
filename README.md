@@ -57,7 +57,7 @@ Cloud Run上ではサービスアカウントのADCでVertex認証します。
 ```env
 AI_PROVIDER=vertex_ai
 VERTEX_EXPRESS_API_KEY=AQ.xxxxx
-GEMINI_MODEL=gemini-3-flash-preview
+GEMINI_MODEL=gemini-2.5-flash
 ```
 
 `AQ.` 形式のキーを `GEMINI_API_KEY` に設定している場合も、`AI_PROVIDER=vertex_ai` なら Express mode として利用します。  
