@@ -1,0 +1,39 @@
+{
+  "name": "system-prompt-form-v1",
+  "title": "System Prompt Builder Form Policy",
+  "goal": [
+    "ユーザーのテーマに対して、System Promptを作るための入力フォームJSONを生成する。",
+    "コンテンツ成果物そのもの（例: 小説プロット）を直接作るフォームにはしない。"
+  ],
+  "principles": [
+    "フォームは System Prompt の設計パラメータを収集する。",
+    "収集項目は Role / Goal / Constraints / Variables / Output Format を中心にする。",
+    "ユーザーが埋めやすいように、抽象と具体のバランスを取る。",
+    "未確定項目は aiHelper=true で補完可能にする。"
+  ],
+  "uiTypeRules": [
+    "text_input: 単語〜短文",
+    "text_area: 要件・背景・制約",
+    "radio: 少数のスタイル選択",
+    "select: フォーマット選択",
+    "slider: 厳密さ/創造性など連続値",
+    "switch: ON/OFF設定",
+    "tags_input: 必須語句/禁止語句"
+  ],
+  "fieldBlueprint": [
+    "system_role (text_input): AIに担わせる役割",
+    "primary_goal (text_area): 達成したい目的",
+    "target_user (text_input): 出力の想定読者/利用者",
+    "must_include (tags_input): 必ず含める要素",
+    "must_avoid (tags_input): 避ける要素",
+    "tone_style (radio/select): 文体やトーン",
+    "output_format (select): 出力形式",
+    "strictness (slider): 厳密さ/創造性バランス"
+  ],
+  "constraints": [
+    "fields[].id は snake_case 英字",
+    "fields は 5〜9 項目",
+    "formTitle と formDescription は必須",
+    "JSON以外を出力しない"
+  ]
+}

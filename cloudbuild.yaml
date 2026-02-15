@@ -1,0 +1,38 @@
+substitutions:
+  _SERVICE_NAME: morph-prompt
+  _REGION: us-central1
+  _MODEL: gemini-2.5-flash
+  _AI_PROVIDER: vertex_ai
+  _GEMINI_SECRET: gemini-api-key
+  _IMAGE: us-central1-docker.pkg.dev/$PROJECT_ID/morph-prompt-repo/morph-prompt:$SHORT_SHA
+
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - -t
+      - ${_IMAGE}
+      - .
+
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - ${_IMAGE}
+
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - ${_SERVICE_NAME}
+      - --image
+      - ${_IMAGE}
+      - --region
+      - ${_REGION}
+      - --platform
+      - managed
+      - --allow-unauthenticated
+      - --set-env-vars
+      - AI_PROVIDER=${_AI_PROVIDER},GEMINI_MODEL=${_MODEL},VERTEX_PROJECT_ID=$PROJECT_ID,VERTEX_LOCATION=${_REGION},SELF_CACHE_ENABLED=true
+      - --set-secrets
+      - GEMINI_API_KEY=${_GEMINI_SECRET}:latest

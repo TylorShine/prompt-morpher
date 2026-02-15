@@ -1,26 +1,65 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #e8efff;
+  --foreground: #0f172a;
+  --onyx-base: #050607;
+  --onyx-surface-1: #0b0d10;
+  --onyx-surface-2: #111419;
+  --onyx-surface-3: #171c23;
+}
+
+.dark {
+  --background: var(--onyx-base);
+  --foreground: #e6edf7;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: "Avenir Next", "Segoe UI", "Noto Sans JP", "Yu Gothic UI", sans-serif;
+  --font-mono: "JetBrains Mono", "Consolas", "Courier New", monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
 }
 
 body {
-  background: var(--background);
+  margin: 0;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(14, 165, 233, 0.22), transparent 45%),
+    radial-gradient(circle at 90% 5%, rgba(99, 102, 241, 0.2), transparent 42%),
+    radial-gradient(circle at 60% 80%, rgba(34, 211, 238, 0.16), transparent 40%),
+    linear-gradient(180deg, #f9fbff 0%, #e5ebf8 100%);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
+
+.dark body {
+  background:
+    radial-gradient(circle at 12% 0%, rgba(14, 165, 233, 0.14), transparent 45%),
+    radial-gradient(circle at 90% 6%, rgba(99, 102, 241, 0.16), transparent 44%),
+    radial-gradient(circle at 62% 82%, rgba(6, 182, 212, 0.1), transparent 42%),
+    linear-gradient(180deg, #06080b 0%, #050607 100%);
+}
+
+::selection {
+  color: #0f172a;
+  background: rgba(20, 184, 166, 0.3);
+}
+
+.dark ::selection {
+  color: #e2e8f0;
+  background: rgba(14, 165, 233, 0.35);
+}
+
