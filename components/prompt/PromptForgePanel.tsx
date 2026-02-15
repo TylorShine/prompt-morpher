@@ -60,7 +60,7 @@ function StreamedPromptText({ finalPrompt }: StreamedPromptTextProps) {
 
   if (!finalPrompt) {
     return (
-      <>{"まだ system prompt は生成されていません。中央のフォームを入力して「Generate System Prompt」を押してください。"}</>
+      <>{"まだ system prompt は生成されていません。中央のフォームを入力して「システムプロンプトを生成」を押してください。"}</>
     );
   }
 

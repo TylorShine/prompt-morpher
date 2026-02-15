@@ -418,7 +418,7 @@ export function DynamicFormRenderer({
         disabled={isSubmitting || isAiBusy}
         className="w-full rounded-2xl bg-gradient-to-r from-sky-600 via-cyan-600 to-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-sky-900/25 transition hover:brightness-105 active:brightness-95 disabled:cursor-not-allowed disabled:opacity-70 dark:shadow-black/35"
       >
-        {isSubmitting ? "Generating..." : "Generate System Prompt"}
+        {isSubmitting ? "生成中..." : "システムプロンプトを生成"}
       </button>
     </form>
   );
