@@ -1,7 +1,7 @@
 substitutions:
   _SERVICE_NAME: morph-prompt
   _REGION: us-central1
-  _MODEL: gemini-2.5-flash
+  _MODEL: gemini-3-flash-preview
   _AI_PROVIDER: vertex_ai
   _GEMINI_SECRET: gemini-api-key
   _IMAGE: us-central1-docker.pkg.dev/$PROJECT_ID/morph-prompt-repo/morph-prompt:$SHORT_SHA

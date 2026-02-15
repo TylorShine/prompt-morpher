@@ -507,7 +507,7 @@ export async function generateFormWithGemini(intent: string): Promise<GenerateFo
     return {
       form: fallback,
       provider: "fallback",
-      model: process.env.GEMINI_MODEL?.trim() || "gemini-2.5-flash",
+      model: process.env.GEMINI_MODEL?.trim() || "gemini-3-flash-preview",
       warning: providerResult.warning,
       cache: {
         selfCache: "disabled",
@@ -670,7 +670,7 @@ export async function generateAutoFillWithGemini({
       suggestions: {},
       filledFieldIds: [],
       provider: "noop",
-      model: process.env.GEMINI_MODEL?.trim() || "gemini-2.5-flash",
+      model: process.env.GEMINI_MODEL?.trim() || "gemini-3-flash-preview",
       cache: {
         selfCache: "disabled",
         contextCache: "bypass",
@@ -687,7 +687,7 @@ export async function generateAutoFillWithGemini({
       suggestions: fallbackSuggestions,
       filledFieldIds: fallbackFieldIds,
       provider: "fallback",
-      model: process.env.GEMINI_MODEL?.trim() || "gemini-2.5-flash",
+      model: process.env.GEMINI_MODEL?.trim() || "gemini-3-flash-preview",
       warning: providerResult.warning,
       cache: {
         selfCache: "disabled",
@@ -865,7 +865,7 @@ export async function generatePromptWithGemini({
       sampleOutput: fallbackSampleOutput,
       compiledPrompt,
       provider: "fallback",
-      model: process.env.GEMINI_MODEL?.trim() || "gemini-2.5-flash",
+      model: process.env.GEMINI_MODEL?.trim() || "gemini-3-flash-preview",
       warning: providerResult.warning,
       cache: {
         selfCache: "disabled",
