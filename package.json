@@ -2,13 +2,18 @@
   "name": "morph-prompt",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://TylorShine.github.io/prompt-morpher",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TylorShine/prompt-morpher.git"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d out"
+    "deploy": "gh-pages -d out --repo https://github.com/TylorShine/prompt-morpher.git"
   },
   "dependencies": {
     "@google/genai": "^1.41.0",
