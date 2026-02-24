@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { FormAutoFillRequest } from "@/lib/contracts/morph-api";
 import { normalizeDynamicForm, normalizeFormValues } from "@/lib/form-normalizer";
-import { generateAutoFillWithGemini } from "@/lib/server/gemini";
+import { generateAutoFill } from "@/lib/server/ai";
 
 export const runtime = "nodejs";
 
@@ -46,12 +46,13 @@ export async function POST(request: NextRequest) {
   }
 
   const values = normalizeFormValues(body.values, form);
-  const result = await generateAutoFillWithGemini({
+  const result = await generateAutoFill({
     intent,
     form,
     values,
     targetFieldId,
     onlyEmpty: body.onlyEmpty === true,
+    settings: body.settings,
   });
 
   return NextResponse.json({

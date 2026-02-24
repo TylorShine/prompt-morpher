@@ -1,3 +1,4 @@
+import { AppSettings } from "@/lib/client/settings";
 import { DynamicForm, FormValues } from "@/lib/form-schema";
 
 export type CacheStatus = "disabled" | "hit" | "miss" | "created" | "unsupported" | "error" | "bypass";
@@ -9,6 +10,7 @@ export interface CacheDiagnostics {
 
 export interface FormGenerateRequest {
   intent: string;
+  settings?: AppSettings;
 }
 
 export interface FormGenerateResponse {
@@ -26,6 +28,7 @@ export interface FormAutoFillRequest {
   values: FormValues;
   targetFieldId?: string;
   onlyEmpty?: boolean;
+  settings?: AppSettings;
 }
 
 export interface FormAutoFillResponse {
@@ -43,6 +46,7 @@ export interface PromptGenerateRequest {
   form: DynamicForm;
   values: FormValues;
   includeSample?: boolean;
+  settings?: AppSettings;
 }
 
 export interface PromptGenerateResponse {

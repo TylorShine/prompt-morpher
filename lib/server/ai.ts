@@ -1,3 +1,4 @@
+import { AppSettings } from "@/lib/client/settings";
 import { buildFormFromIntent, suggestFieldValue } from "@/lib/form-templates";
 import { normalizeDynamicForm } from "@/lib/form-normalizer";
 import { DynamicForm, FormField, FormValues, PrimitiveFieldValue } from "@/lib/form-schema";
@@ -20,6 +21,7 @@ import {
   setCachedPromptResult,
 } from "@/lib/server/cache/model-cache";
 import { stableStringify } from "@/lib/server/cache/hash-utils";
+import { CacheDiagnostics } from "@/lib/contracts/morph-api";
 
 const FORM_RESPONSE_JSON_SCHEMA = {
   type: "object",
@@ -82,11 +84,6 @@ const AUTOFILL_RESPONSE_JSON_SCHEMA = {
     },
   },
 } as const;
-
-interface CacheDiagnostics {
-  selfCache: "disabled" | "hit" | "miss";
-  contextCache: "disabled" | "hit" | "created" | "unsupported" | "error" | "bypass";
-}
 
 interface CachedFormPayloadV1 {
   source: "model";
@@ -490,7 +487,7 @@ function extractCachedForm(
   return normalizedLegacy;
 }
 
-export interface GenerateFormWithGeminiResult {
+export interface GenerateFormResult {
   form: DynamicForm;
   provider: string;
   model: string;
@@ -498,9 +495,9 @@ export interface GenerateFormWithGeminiResult {
   cache: CacheDiagnostics;
 }
 
-export async function generateFormWithGemini(intent: string): Promise<GenerateFormWithGeminiResult> {
+export async function generateForm(intent: string, settings?: AppSettings): Promise<GenerateFormResult> {
   const fallback = buildFormFromIntent(intent);
-  const providerResult = resolveProvider();
+  const providerResult = resolveProvider(settings);
   const formPolicy = loadFormGenerationPolicy();
 
   if (!providerResult.ok) {
@@ -633,15 +630,16 @@ export async function generateFormWithGemini(intent: string): Promise<GenerateFo
   }
 }
 
-export interface GenerateAutoFillWithGeminiInput {
+export interface GenerateAutoFillInput {
   intent: string;
   form: DynamicForm;
   values: FormValues;
   targetFieldId?: string;
   onlyEmpty?: boolean;
+  settings?: AppSettings;
 }
 
-export interface GenerateAutoFillWithGeminiResult {
+export interface GenerateAutoFillResult {
   suggestions: FormValues;
   filledFieldIds: string[];
   provider: string;
@@ -650,13 +648,14 @@ export interface GenerateAutoFillWithGeminiResult {
   cache: CacheDiagnostics;
 }
 
-export async function generateAutoFillWithGemini({
+export async function generateAutoFill({
   intent,
   form,
   values,
   targetFieldId,
   onlyEmpty = true,
-}: GenerateAutoFillWithGeminiInput): Promise<GenerateAutoFillWithGeminiResult> {
+  settings,
+}: GenerateAutoFillInput): Promise<GenerateAutoFillResult> {
   const initialTargets = targetFieldId
     ? form.fields.filter((field) => field.id === targetFieldId)
     : form.fields.filter((field) => field.aiHelper !== false);
@@ -680,7 +679,7 @@ export async function generateAutoFillWithGemini({
 
   const fallbackSuggestions = buildLocalAutoFillSuggestions(intent, targetFields);
   const fallbackFieldIds = Object.keys(fallbackSuggestions);
-  const providerResult = resolveProvider();
+  const providerResult = resolveProvider(settings);
 
   if (!providerResult.ok) {
     return {
@@ -829,14 +828,15 @@ export async function generateAutoFillWithGemini({
   }
 }
 
-export interface GeneratePromptWithGeminiInput {
+export interface GeneratePromptInput {
   intent: string;
   form: DynamicForm;
   values: FormValues;
   includeSample?: boolean;
+  settings?: AppSettings;
 }
 
-export interface GeneratePromptWithGeminiResult {
+export interface GeneratePromptResult {
   result: string;
   sampleOutput?: string;
   compiledPrompt: string;
@@ -846,18 +846,19 @@ export interface GeneratePromptWithGeminiResult {
   cache: CacheDiagnostics;
 }
 
-export async function generatePromptWithGemini({
+export async function generatePrompt({
   intent,
   form,
   values,
   includeSample = false,
-}: GeneratePromptWithGeminiInput): Promise<GeneratePromptWithGeminiResult> {
+  settings,
+}: GeneratePromptInput): Promise<GeneratePromptResult> {
   const compiledPrompt = compilePrompt({ intent, form, values, includeSample });
   const fallbackSystemPrompt = buildSystemPromptFallback({ intent, form, values });
   const fallbackSampleOutput = includeSample
     ? buildSampleOutputFallback({ intent, form, values })
     : undefined;
-  const providerResult = resolveProvider();
+  const providerResult = resolveProvider(settings);
 
   if (!providerResult.ok) {
     return {

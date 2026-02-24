@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { FormGenerateRequest } from "@/lib/contracts/morph-api";
-import { generateFormWithGemini } from "@/lib/server/gemini";
+import { generateForm } from "@/lib/server/ai";
 
 export const runtime = "nodejs";
 
@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const result = await generateFormWithGemini(intent);
+  const result = await generateForm(intent, body.settings);
 
   return NextResponse.json({
     form: result.form,

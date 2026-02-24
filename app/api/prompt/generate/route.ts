@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PromptGenerateRequest } from "@/lib/contracts/morph-api";
 import { normalizeDynamicForm, normalizeFormValues } from "@/lib/form-normalizer";
-import { generatePromptWithGemini } from "@/lib/server/gemini";
+import { generatePrompt } from "@/lib/server/ai";
 
 export const runtime = "nodejs";
 
@@ -36,11 +36,12 @@ export async function POST(request: NextRequest) {
 
   const includeSample = body.includeSample === true;
   const values = normalizeFormValues(body.values, form);
-  const result = await generatePromptWithGemini({
+  const result = await generatePrompt({
     intent,
     form,
     values,
     includeSample,
+    settings: body.settings,
   });
 
   return NextResponse.json({

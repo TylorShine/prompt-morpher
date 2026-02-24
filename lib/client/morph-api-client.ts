@@ -7,16 +7,19 @@ import {
   PromptGenerateResponse,
 } from "@/lib/contracts/morph-api";
 
+import { getAppSettings } from "@/lib/client/settings";
+
 async function postJson<TRequest, TResponse>(
   url: string,
   body: TRequest,
 ): Promise<TResponse> {
+  const settings = getAppSettings();
   const response = await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(body),
+    body: JSON.stringify({ ...body, settings }),
   });
 
   const payload = (await response.json()) as TResponse & { error?: string };

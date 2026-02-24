@@ -115,6 +115,10 @@ function normalizeContextCacheError(error: unknown): {
   };
 }
 
+import { GeminiProvider } from "../llm/gemini";
+// ... (imports)
+
+// ... (code)
 export async function getOrCreateContextCache(
   provider: UnifiedAiProvider,
   staticContext: string,
@@ -122,6 +126,14 @@ export async function getOrCreateContextCache(
   if (!isContextCacheEnabled()) {
     return { status: "disabled" };
   }
+
+  if (!(provider.client instanceof GeminiProvider)) {
+    return {
+      status: "unsupported",
+      warning: "Context cache is only supported for Gemini providers.",
+    };
+  }
+  const geminiProvider = provider.client;
 
   const lookupKey = buildCacheLookupKey(
     provider.info.kind,
@@ -150,7 +162,7 @@ export async function getOrCreateContextCache(
   }
 
   try {
-    const created = await provider.createContextCache({
+    const created = await geminiProvider.createContextCache({
       cacheKey: `i2p-${sha256Hex(lookupKey).slice(0, 12)}`,
       staticContext,
       ttlSeconds: getContextCacheTtlSeconds(),

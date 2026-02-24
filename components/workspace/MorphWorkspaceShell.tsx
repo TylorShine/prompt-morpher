@@ -1,6 +1,7 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
+import { SettingsPane } from "@/components/settings/SettingsPane";
 import {
   getUiPhaseLabel,
   getUiPhaseProgress,
@@ -32,8 +33,24 @@ export function MorphWorkspaceShell({
   const progress = getUiPhaseProgress(phase);
   const railIndex = getUiPhaseRailIndex(phase);
 
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+
   return (
     <div className="min-h-screen px-3 py-4 sm:px-6 lg:px-8">
+      {isSettingsOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-lg dark:bg-slate-800">
+            <SettingsPane />
+            <button
+              type="button"
+              onClick={() => setIsSettingsOpen(false)}
+              className="mt-4 w-full rounded-md bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-700 dark:bg-slate-600 dark:hover:bg-slate-500"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
       <div className="mx-auto w-full max-w-[1360px] space-y-5">
         <header className="hidden rounded-3xl border border-slate-200/70 bg-white/70 p-5 shadow-xl shadow-slate-900/5 backdrop-blur dark:border-slate-700/70 dark:bg-[#0b0d10]/90 dark:shadow-black/45 lg:block">
           <div className="flex flex-col gap-3 xl:flex-row xl:items-end xl:justify-between">
@@ -50,6 +67,13 @@ export function MorphWorkspaceShell({
             </div>
             <div className="flex items-center gap-2">
               <ThemeToggle />
+              <button
+                type="button"
+                onClick={() => setIsSettingsOpen(true)}
+                className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-800 hover:bg-slate-100 dark:border-slate-700/70 dark:bg-[#171c23] dark:text-slate-300 dark:hover:bg-[#1d242c]"
+              >
+                Settings
+              </button>
               <div className="inline-flex items-center rounded-full border border-sky-200 bg-sky-50 px-3 py-1.5 text-xs font-semibold text-sky-800 dark:border-sky-700/70 dark:bg-[#171c23] dark:text-sky-300">
                 Phase: {getUiPhaseLabel(phase)}
               </div>

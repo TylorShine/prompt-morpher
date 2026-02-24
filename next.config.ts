@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const isGithubActions = process.env.GITHUB_ACTIONS || false;
 
-let repo = 'prompt-morpher';
+const repo = 'prompt-morpher';
 let assetPrefix = '';
 let basePath = '';
 
