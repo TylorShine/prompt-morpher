@@ -1,7 +1,12 @@
 self.__BUILD_MANIFEST = {
   "__rewrites": {
     "afterFiles": [],
-    "beforeFiles": [],
+    "beforeFiles": [
+      {
+        "source": "/prompt-morpher//_next/:path+",
+        "destination": "/prompt-morpher/_next/:path+"
+      }
+    ],
     "fallback": []
   },
   "sortedPages": [
