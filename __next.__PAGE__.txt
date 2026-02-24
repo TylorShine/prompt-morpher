@@ -1,6 +1,6 @@
 1:"$Sreact.fragment"
-2:I[18539,["/prompt-morpher/_next/static/chunks/76819320782534c9.js"],"MorphPromptWorkspace"]
+2:I[18539,["/prompt-morpher/_next/static/chunks/e2dc6ae9424b4a32.js"],"MorphPromptWorkspace"]
 3:I[97367,["/prompt-morpher/_next/static/chunks/2f236954d6a65e12.js"],"OutletBoundary"]
 4:"$Sreact.suspense"
-0:{"buildId":"bTER6O_Nob5Hs_kWcsGJd","rsc":["$","$1","c",{"children":[["$","$L2",null,{}],[["$","script","script-0",{"src":"/prompt-morpher/_next/static/chunks/76819320782534c9.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"loading":null,"isPartial":false}
+0:{"buildId":"PWXHJ-xcO_MiWhZAtJ1TP","rsc":["$","$1","c",{"children":[["$","$L2",null,{}],[["$","script","script-0",{"src":"/prompt-morpher/_next/static/chunks/e2dc6ae9424b4a32.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"loading":null,"isPartial":false}
 5:null
